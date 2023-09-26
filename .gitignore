@@ -20,3 +20,6 @@ poppypaw
 
 # Go workspace file
 go.work
+
+# Config files
+config.yaml
