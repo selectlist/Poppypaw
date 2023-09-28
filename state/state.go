@@ -7,6 +7,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/go-playground/validator"
 	"github.com/jackc/pgx/v5/pgxpool"
+	novu "github.com/novuhq/go-novu/lib"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -22,4 +23,7 @@ var (
 	// Data
 	Database *pgxpool.Pool
 	Redis    *redis.Client
+
+	// Novu
+	Novu *novu.APIClient
 )

@@ -6,7 +6,6 @@ type Config struct {
 	RedisURL    string `yaml:"redis_url" validate:"required" comment:"Redis URL"`
 
 	// Discord
-	ClientID     string `yaml:"client_id" validate:"required" comment:"Discord Client ID (for oAuth)"`
 	DiscordToken string `yaml:"discord_token" validate:"required" comment:"Discord Bot Token"`
 
 	// Novu
