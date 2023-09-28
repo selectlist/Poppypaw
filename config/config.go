@@ -10,4 +10,7 @@ type Config struct {
 
 	// Novu
 	NovuAPIKey string `yaml:"novu_api" validate:"required" comment:"Novu Admin API Key"`
+
+	// Server
+	Port string `yaml:"port" validate:"required" comment:"Server Port Number"`
 }

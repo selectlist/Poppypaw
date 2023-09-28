@@ -2,3 +2,4 @@ database_url: # Database URL (PostgreSQL)
 redis_url: # Redis URL
 discord_token: # Discord Bot Token
 novu_api: # Novu Admin API Key
+port: # Server Port Number
