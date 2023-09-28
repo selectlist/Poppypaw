@@ -1,10 +1,9 @@
 package state
 
 import (
+	"errors"
 	"fmt"
 	"poppypaw/config"
-
-	"errors"
 
 	"os"
 
