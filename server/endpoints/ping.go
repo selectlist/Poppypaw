@@ -6,7 +6,6 @@ import (
 )
 
 func Ping(w http.ResponseWriter, r *http.Request) {
-	// Convert the bot struct to JSON
 	jsonData, err := json.Marshal(map[string]interface{}{
 		"message": "PONG!",
 	})
