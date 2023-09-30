@@ -1,7 +1,7 @@
 package main
 
 import (
-	"context"
+	//"context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -13,7 +13,7 @@ import (
 
 	"poppypaw/server"
 
-	novu "github.com/novuhq/go-novu/lib"
+	//novu "github.com/novuhq/go-novu/lib"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 
 	state.Setup()
 
-	// Novu (send basic notification)
+	/* Novu (send basic notification)
 	ctx := context.Background()
 	to := map[string]interface{}{
 		"subscriberId": "564164277251080208",
@@ -40,7 +40,7 @@ func main() {
 	if err != nil {
 		sentry.CaptureException(err)
 		return
-	}
+	}*/
 
 	// Server
 	go func() {
