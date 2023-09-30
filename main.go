@@ -12,7 +12,6 @@ import (
 	"net/http"
 
 	"poppypaw/server"
-
 	//novu "github.com/novuhq/go-novu/lib"
 )
 
