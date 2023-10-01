@@ -27,6 +27,7 @@ func Initialize() http.Handler {
 
 	mux.HandleFunc("/ping", CORS(endpoints.Ping))
 	mux.HandleFunc("/subscribe", CORS(endpoints.Subscribe))
+	mux.HandleFunc("/notification", CORS(endpoints.Notification))
 
 	return mux
 }

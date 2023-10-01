@@ -1,18 +1,17 @@
 package main
 
 import (
-	//"context"
 	"fmt"
 	"os"
 	"os/signal"
 	"poppypaw/state"
 	"syscall"
 
-	"github.com/getsentry/sentry-go"
 	"net/http"
 
+	"github.com/getsentry/sentry-go"
+
 	"poppypaw/server"
-	//novu "github.com/novuhq/go-novu/lib"
 )
 
 func main() {
@@ -23,23 +22,6 @@ func main() {
 	})
 
 	state.Setup()
-
-	/* Novu (send basic notification)
-	ctx := context.Background()
-	to := map[string]interface{}{
-		"subscriberId": "564164277251080208",
-	}
-
-	payload := map[string]interface{}{
-		"message": "This is a notification from Poppypaw!",
-	}
-
-	data := novu.ITriggerPayloadOptions{To: to, Payload: payload}
-	_, err := state.Novu.EventApi.Trigger(ctx, "primary", data)
-	if err != nil {
-		sentry.CaptureException(err)
-		return
-	}*/
 
 	// Server
 	go func() {
