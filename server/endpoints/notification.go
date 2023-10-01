@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"poppypaw/state"
+
 	"github.com/getsentry/sentry-go"
 	novu "github.com/novuhq/go-novu/lib"
-	"poppypaw/state"
 )
 
 func Notification(w http.ResponseWriter, r *http.Request) {
 	// Check if the request is not coming from localhost
-	if r.Host != "localhost" && r.Host != "127.0.0.1" {
+	if r.Host != "localhost:" + state.Config.Port && r.Host != "127.0.0.1:" + state.Config.Port {
 		http.Error(w, "Page not Found.", http.StatusNotFound)
 		return
 	}
@@ -28,6 +29,26 @@ func Notification(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Query().Get("title")
 	description := r.URL.Query().Get("description")
 	eventName := r.URL.Query().Get("event_name")
+
+	if subscriberID == "" {
+		http.Error(w, "Missing Fields: id", http.StatusBadRequest)
+		return
+	} 
+	
+	if title == "" {
+		http.Error(w, "Missing Fields: title", http.StatusBadRequest)
+		return
+	}
+	
+	if description == "" {
+		http.Error(w, "Missing Fields: description", http.StatusBadRequest)
+		return
+	}
+	
+	if eventName == "" {
+		http.Error(w, "Missing Fields: event_name", http.StatusBadRequest)
+		return
+	}
 
 	// Prepare data for Novu
 	ctx := context.Background()
