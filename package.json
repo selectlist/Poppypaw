@@ -10,7 +10,7 @@
 		"tsc": "tsc",
 		"format": "prettier --write .",
 		"test": "jest",
-		"database:typegen": "npx @kalissaac/prisma-typegen ./src/database/types/prismaTypes.ts ./src/database/schema.prisma"
+		"database:typegen": "npx @kalissaac/prisma-typegen ./src/v4-database/types/prismaTypes.ts ./src/v4-database/schema.prisma"
 	},
 	"dependencies": {
 		"@fastify/cors": "^8.5.0",
