@@ -5,18 +5,15 @@ import * as database from "./v4-database/prisma.js";
 import * as perms from "./perms.js";
 import cors from "@fastify/cors";
 import ratelimit from "@fastify/rate-limit";
+import swagger from "@fastify/swagger";
+import ui from "@fastify/swagger-ui";
 import "dotenv/config";
-import Fastify, {
-	FastifyInstance,
-	FastifyReply,
-	FastifyRequest,
-} from "fastify";
+import Fastify, { FastifyInstance } from "fastify";
 
 // Middleware
 const app: FastifyInstance = Fastify({
 	logger: true,
 });
-let Routes = [];
 
 app.register(cors, {
 	origin: "*",
@@ -36,6 +33,64 @@ app.register(cors, {
 	strictPreflight: false,
 });
 
+app.register(swagger, {
+	swagger: {
+		info: {
+			title: "Select List",
+			description:
+				"Enhance your Discord Server with unparalleled versatility through our curated selection.",
+			version: "4.0.0",
+		},
+		host:
+			process.env.ENV === "production"
+				? "api.select-list.xyz"
+				: `localhost:${process.env.PORT}`,
+		schemes: ["http"],
+		consumes: ["application/json"],
+		produces: ["application/json"],
+		tags: [
+			{
+				name: "users",
+				description: "Endpoints related to our users database.",
+			},
+			{
+				name: "bots",
+				description: "Endpoints related to our bots database.",
+			}
+		],
+		securityDefinitions: {
+			apiKey: {
+				type: "apiKey",
+				name: "Authorization",
+				in: "header",
+			},
+		},
+	},
+	hideUntagged: false,
+});
+
+app.register(ui, {
+	routePrefix: "/docs",
+	uiConfig: {
+		docExpansion: "full",
+		deepLinking: true,
+	},
+	uiHooks: {
+		onRequest: (request, reply, next) => {
+			next();
+		},
+		preHandler: (request, reply, next) => {
+			next();
+		},
+	},
+	staticCSP: true,
+	transformStaticCSP: (header) => header,
+	transformSpecification: (swaggerObject, request, reply) => {
+		return swaggerObject;
+	},
+	transformSpecificationClone: true,
+});
+
 app.register(ratelimit, {
 	global: true,
 	max: 50,
@@ -49,15 +104,6 @@ app.addHook("preHandler", (req, res, done) => {
 	res.header("Access-Control-Allow-Credentials", "true");
 
 	done();
-});
-
-// Endpoint for getting Routes
-app.route({
-	method: "GET",
-	url: "/routes",
-	handler: async (request: FastifyRequest, reply: FastifyReply) => {
-		return reply.send(Routes);
-	},
 });
 
 // API Endpoints Map
@@ -84,9 +130,8 @@ const apiEndpointsFiles = getFilesInDirectory("./dist/endpoints").filter(
 
 for (const file of apiEndpointsFiles) {
 	import(`../${file}`)
-		.then((module) => {
-			app.route(module.default);
-			Routes.push(module.default);
+		.then(async (module) => {
+			await app.route(module.default);
 		})
 		.catch((error) => {
 			console.error(`Error importing ${file}: ${error}`);
@@ -94,6 +139,11 @@ for (const file of apiEndpointsFiles) {
 }
 
 setTimeout(() => {
+	// Swagger
+	app.ready(() => {
+		app.swagger();
+	});
+
 	// Start Server
 	app.listen({ port: Number(process.env.PORT) }, (err) => {
 		if (err) throw err;

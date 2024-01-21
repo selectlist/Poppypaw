@@ -1,10 +1,8 @@
 {
 	"name": "sl-api",
-	"version": "0.0.1",
-	"main": "index.js",
+	"version": "4.0.0",
 	"author": "selectdev",
 	"license": "MIT",
-	"description": "",
 	"scripts": {
 		"start": "node ./dist/index",
 		"tsc": "tsc",
@@ -12,9 +10,12 @@
 		"test": "jest",
 		"database:typegen": "npx @kalissaac/prisma-typegen ./src/v4-database/types/prismaTypes.ts ./src/v4-database/schema.prisma"
 	},
+	"type": "module",
 	"dependencies": {
 		"@fastify/cors": "^8.5.0",
 		"@fastify/rate-limit": "^9.1.0",
+		"@fastify/swagger": "^8.14.0",
+		"@fastify/swagger-ui": "^2.1.0",
 		"@prisma/client": "^5.8.1",
 		"colors": "^1.4.0",
 		"dotenv": "^16.3.1",
