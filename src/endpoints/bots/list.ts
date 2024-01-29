@@ -10,9 +10,15 @@ export default {
 		tags: ["bots"],
 	},
 	handler: async (request: FastifyRequest, reply: FastifyReply) => {
-		let bots = await database.Bots.find({});
-		bots.reverse();
+		let discord = await database.Discord.find({});
+		discord.reverse();
 
-		return reply.send(bots);
+		let revolt = await database.Revolt.find({});
+		revolt.reverse();
+
+		return reply.send({
+			discord: discord,
+			revolt: revolt,
+		});
 	},
 };

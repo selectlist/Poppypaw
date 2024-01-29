@@ -19,14 +19,19 @@ export default {
 	handler: async (request: FastifyRequest, reply: FastifyReply) => {
 		const data: any = request.query;
 
-		let user = await database.Bots.get({ botid: data.botid });
+		let bot = await database.Discord.get({ botid: data.botid });
 
-		if (user) return reply.send(user);
-		else
-			return reply.status(404).send({
-				message:
-					"We couldn't fetch any information about this bot in our database",
-				error: true,
-			});
+		if (bot) return reply.send(bot);
+		else {
+			bot = await database.Revolt.get({ botid: data.botid });
+
+			if (bot) return reply.send(bot);
+			else
+				return reply.status(404).send({
+					message:
+						"We couldn't fetch any information about this bot in our database",
+					error: true,
+				});
+		}
 	},
 };

@@ -56,7 +56,7 @@ app.register(swagger, {
 			{
 				name: "bots",
 				description: "Endpoints related to our bots database.",
-			}
+			},
 		],
 		securityDefinitions: {
 			apiKey: {
