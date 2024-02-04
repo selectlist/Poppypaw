@@ -1,5 +1,5 @@
 {
-	"name": "sl-api",
+	"name": "poppypaw",
 	"version": "4.0.0",
 	"author": "selectdev",
 	"license": "MIT",
@@ -8,7 +8,7 @@
 		"tsc": "tsc",
 		"format": "prettier --write .",
 		"test": "jest",
-		"database:typegen": "npx @kalissaac/prisma-typegen ./src/v4-database/types/prismaTypes.ts ./src/v4-database/schema.prisma"
+		"database:typegen": "npx @kalissaac/prisma-typegen ./src/Serendipity/types/prismaTypes.ts ./src/Serendipity/schema.prisma"
 	},
 	"type": "module",
 	"dependencies": {

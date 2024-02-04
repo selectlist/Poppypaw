@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import * as database from "../../v4-database/prisma.js";
+import * as database from "../../Serendipity/prisma.js";
 
 export default {
 	url: "/bots/get",
