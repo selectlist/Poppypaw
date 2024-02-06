@@ -8,7 +8,7 @@ export default {
 		summary: "Get @me information",
 		description:
 			"Returns all information about an user based on the token.",
-		tags: ["@me"],
+		tags: ["users"],
 		security: [
 			{
 				apiKey: [],
@@ -17,7 +17,7 @@ export default {
 	},
 	handler: async (request: FastifyRequest, reply: FastifyReply) => {
 		const Authorization: any = request.headers.authorization;
-        const token = await database.Tokens.get({ token: Authorization })
+		const token = await database.Tokens.get({ token: Authorization });
 		const user = await database.Users.get({ userid: token.userid });
 
 		if (user) return reply.send(user);

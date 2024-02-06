@@ -57,6 +57,11 @@ app.register(swagger, {
 				name: "bots",
 				description: "Endpoints related to our bots database.",
 			},
+			{
+				name: "developers",
+				description:
+					"Endpoints used to access our Developer Dashboard.",
+			},
 		],
 		securityDefinitions: {
 			apiKey: {
